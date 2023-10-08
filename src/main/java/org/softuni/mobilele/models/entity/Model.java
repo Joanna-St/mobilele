@@ -16,19 +16,26 @@ import java.time.LocalDateTime;
 public class Model extends BaseEntity {
     @Column(nullable = false)
     private String name;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private CarCategoryEnum category;
+
     @Column(name = "image_url", length = 512)
     private String imageUrl;
+
     @Column(nullable = false)
     private Integer startYear;
+
     @Column
     private Integer endYear;
+
     @Column(nullable = false)
     private LocalDateTime created;
+
     @Column
     private LocalDateTime modified;
-    @ManyToOne
+
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Brand brand;
 }

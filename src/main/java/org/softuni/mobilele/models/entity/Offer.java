@@ -18,26 +18,36 @@ import java.time.LocalDateTime;
 public class Offer extends BaseEntity {
     @Column(columnDefinition = "text")
     private String description;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private EngineEnum engine;
+
     @Column(name = "image_url")
     private String imageUrl;
+
     @Column(nullable = false)
     private Integer mileage;
+
     @Column(nullable = false)
     private BigDecimal price;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private TransmissionEnum transmission;
+
     @Column(nullable = false)
     private Integer year;
+
     @Column(nullable = false)
     private LocalDateTime created;
+
     @Column
     private LocalDateTime modified;
+
     @ManyToOne
     private Model model;
+
     @ManyToOne
     private User seller;
 }

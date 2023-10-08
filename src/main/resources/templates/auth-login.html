@@ -2,16 +2,17 @@
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <th:block th:include="~{fragments/head}"></th:block>
+    <th:block th:insert="~{fragments/head}"></th:block>
 </head>
 <body>
 <div>
-    <th:block th:include="~{fragments/navbar}"></th:block>
+    <th:block th:insert="~{fragments/navbar}"></th:block>
 </div>
 
 <div class="container">
     <h2 class="text-center text-white">Login</h2>
-    <form method="POST" 
+    <form th:action="@{/users/login}"
+          th:method="POST"
           class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
         <div class="form-group">
             <label for="username" class="text-white font-weight-bold">Username</label>

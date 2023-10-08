@@ -7,10 +7,13 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-    User getUserByUsername(String userName);
+
+    Optional<User> findUserByUsername(String username);
+
     @Query(value = "SELECT u " +
             "FROM User AS u " +
             "WHERE u.isActive = true")

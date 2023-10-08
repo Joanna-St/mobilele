@@ -18,7 +18,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/offers/all">All Offers</a>
                 </li>
-                <li class="nav-item dropdown">
+                <li th:if="${@currentUser.getRole()=='Admin'}" class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="/" id="navbarDropdown" role="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Admin
@@ -30,18 +30,18 @@
                         <a class="dropdown-item" href="/">Something else here</a>
                     </div>
                 </li>
-                <li class="nav-item">
+                <li th:if="${@currentUser.isLogged()}" class="nav-item">
                     <div class="form-inline my-2 my-lg-0 border px-3">
                         <div class="logged-user"
-                             text="Welcome, Gosho"></div>
+                             th:text="|Welcome, ${@currentUser.getFirstName()}|"></div>
                         <a class="nav-link" href="/users/logout">Logout</a>
                     </div>
                 </li>
 
-                <li class="nav-item">
+                <li th:unless="${@currentUser.isLogged()}" class="nav-item">
                     <a class="nav-link" href="/users/register">Register</a>
                 </li>
-                <li class="nav-item">
+                <li th:unless="${@currentUser.isLogged()}" class="nav-item">
                     <a class="nav-link" href="/users/login">Login</a>
                 </li>
 
