@@ -30,7 +30,7 @@ public class User extends BaseEntity {
     private UserRole role;
     @Column(name = "image_url")
     private String imageUrl;
-    @Column(nullable = false)
+    @Column
     private LocalDateTime created;
     @Column
     private LocalDateTime modified;
