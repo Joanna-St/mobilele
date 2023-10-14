@@ -2,12 +2,15 @@ package org.softuni.mobilele.models.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -23,4 +26,7 @@ public class Brand extends BaseEntity {
 
     @Column
     private LocalDateTime modified;
+
+    @OneToMany(targetEntity = Model.class, mappedBy = "brand")
+    private List<Model> models;
 }

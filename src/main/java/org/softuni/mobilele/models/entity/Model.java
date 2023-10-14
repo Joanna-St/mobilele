@@ -24,10 +24,10 @@ public class Model extends BaseEntity {
     @Column(name = "image_url", length = 512)
     private String imageUrl;
 
-    @Column(nullable = false)
+    @Column(nullable = false,name = "start_year")
     private Integer startYear;
 
-    @Column
+    @Column(name = "end_year")
     private Integer endYear;
 
     @Column(nullable = false)
@@ -37,5 +37,6 @@ public class Model extends BaseEntity {
     private LocalDateTime modified;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "brand_id")
     private Brand brand;
 }
