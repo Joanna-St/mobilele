@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class UserLogoutServiceImpl implements UserLogoutService {
     private final CurrentUser currentUser;
+
     @Override
     public void logoutUser() {
         currentUser.logout();

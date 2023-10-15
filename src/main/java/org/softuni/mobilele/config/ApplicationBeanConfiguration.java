@@ -8,7 +8,7 @@ import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 @Configuration
 public class ApplicationBeanConfiguration {
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return Pbkdf2PasswordEncoder.defaultsForSpringSecurity_v5_8();
     }
 }

@@ -23,9 +23,9 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
     @Override
     public void registerUser(UserRegistrationDTO userRegistrationDTO) {
         userRepository.save(map(userRegistrationDTO));
-        mapCurrentUser(map(userRegistrationDTO));
+        currentUser.login(map(userRegistrationDTO));
     }
-    
+
     private User map(UserRegistrationDTO userRegistrationDTO) {
         User newUser = new User();
         newUser.setUsername(userRegistrationDTO.username());
@@ -40,10 +40,5 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
         return newUser;
     }
 
-    private void mapCurrentUser(User user) {
-        currentUser.setFirstName(user.getFirstName());
-        currentUser.setLastName(user.getLastName());
-        currentUser.setRole(user.getRole().getRole().name());
-        currentUser.setLogged(true);
-    }
+
 }

@@ -17,27 +17,28 @@
         <div class="offer card col-sm-2 col-md-3  col-lg-4 m-1 p-0">
 
             <div class="card-body pb-1">
-                <h5 class="card-title">
-                    Offer year Brand name Model name</h5>
+                <h5 class="card-title"
+                    th:text="${offer.model.brand.name} + ' ' + ${offer.model.name} + ' - ' + ${offer.year}"></h5>
             </div>
             <ul class="offer-details list-group list-group-flush">
                 <li class="list-group-item">
-                    <div class="card-text"><span>• Mileage</span></div>
-                    <div class="card-text"><span>• Price</span></div>
-                    <div class="card-text"><span>• Engine type</span></div>
-                    <div class="card-text"><span>• Transmission type</span></div>
-                    <div class="card-text"><span>• Offer created</span></div>
-                    <div class="card-text"><span>• Offer modified</span></div>
-                    <div class="card-text"><span>• Seller - First and Last name</span></div>
+                    <div class="card-text">Mileage: <span th:text="${offer.mileage}"></span></div>
+                    <div class="card-text">Price: <span th:text="${offer.price}"></span></div>
+                    <div class="card-text">Engine type: <span th:text="${offer.engine}"></span></div>
+                    <div class="card-text">Transmission type: <span th:text="${offer.transmission}"></span></div>
+                    <div class="card-text">Offer created: <span th:text="${#temporals.format(offer.created, 'yyyy-MM-dd HH:mm')}"></span></div>
+                    <div class="card-text">Offer modified: <span th:text="${#temporals.format(offer.modified, 'yyyy-MM-dd HH:mm')}"></span></div>
+                    <div class="card-text">Seller - First and Last name: <span th:text="${offer.seller.firstName} + ' ' + ${offer.seller.lastName}"></span></div>
+                    <div class="card-text">Description: <span th:text="${offer.description}"></span></div>
                 </li>
             </ul>
             <div class="card-body">
-                <a class="card-link" href="/">Update</a>
-                <a class="card-link" href="/">Delete</a>
+                <a class="card-link" th:href="'/offers/' + ${offer.uuid} + '/update'">Update</a>
+                <a class="card-link" th:href="'/offers/' + ${offer.uuid} + '/delete'">Delete</a>
             </div>
         </div>
         <div class="offer card col-sm-2 col-md-3  col-lg-4 m-1 p-0">
-            <img src="/" class="card-img-top" alt="Car image">
+            <img th:src="${offer.model.imageUrl}" class="card-img-top" alt="Car image">
         </div>
     </div>
 </div>

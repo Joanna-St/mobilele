@@ -13,8 +13,8 @@
 <div class="container">
     <h2 class="text-center text-white m-3">All Brands</h2>
     <div class='row mb-4 d-flex justify-content-around'>
-        <div th:each="brand: ${brands}"
-             class="brand-section col-md-5 mr-auto d-flex flex-column">
+        <div class="brand-section col-md-5 mr-auto d-flex flex-column"
+             th:each="brand: ${brands}">
             <h2>Car brand:
                 <span th:text="${brand.name}"></span>
             </h2>

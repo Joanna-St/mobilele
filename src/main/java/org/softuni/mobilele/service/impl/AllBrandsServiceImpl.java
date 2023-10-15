@@ -28,11 +28,11 @@ public class AllBrandsServiceImpl implements AllBrandsService {
         return new BrandDTO(brand.getName(),
                 brand.getModels()
                         .stream()
-                .map(this::map)
-                .toList());
+                        .map(this::map)
+                        .toList());
     }
 
-    private ModelDTO map(Model model){
+    private ModelDTO map(Model model) {
         return new ModelDTO(model.getId(),
                 model.getName(),
                 model.getCategory(),

@@ -24,7 +24,7 @@ public class Model extends BaseEntity {
     @Column(name = "image_url", length = 512)
     private String imageUrl;
 
-    @Column(nullable = false,name = "start_year")
+    @Column(nullable = false, name = "start_year")
     private Integer startYear;
 
     @Column(name = "end_year")

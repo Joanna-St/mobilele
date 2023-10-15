@@ -27,18 +27,12 @@ public class UserLoginServiceImpl implements UserLoginService {
             String rawPassword = userLoginDTO.password();
 
             if (passwordEncoder.matches(rawPassword, encodedPassword)) {
-                mapCurrentUser(findUser.get());
+                currentUser.login(findUser.get());
                 return true;
             }
-        };
+        }
+        ;
 
         return false;
-    }
-
-    private void mapCurrentUser(User user) {
-        currentUser.setFirstName(user.getFirstName());
-        currentUser.setLastName(user.getLastName());
-        currentUser.setRole(user.getRole().getRole().name());
-        currentUser.setLogged(true);
     }
 }

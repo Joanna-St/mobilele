@@ -4,11 +4,14 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.JdbcTypeCode;
 import org.softuni.mobilele.models.entity.enums.EngineEnum;
 import org.softuni.mobilele.models.entity.enums.TransmissionEnum;
 
 import java.math.BigDecimal;
+import java.sql.Types;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -16,6 +19,10 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "offers")
 public class Offer extends BaseEntity {
+    @Column(nullable = false)
+    @JdbcTypeCode(Types.VARCHAR)
+    private UUID uuid;
+
     @Column(columnDefinition = "text")
     private String description;
 
