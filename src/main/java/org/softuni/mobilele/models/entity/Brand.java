@@ -1,9 +1,6 @@
 package org.softuni.mobilele.models.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,6 +12,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @Entity
+@NamedEntityGraph(name = "brandsAndModels", attributeNodes = @NamedAttributeNode("models"))
 @Table(name = "brands")
 public class Brand extends BaseEntity {
     @Column(nullable = false)

@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.softuni.mobilele.models.entity.enums.CarCategoryEnum;
+import org.softuni.mobilele.models.enums.CarCategoryEnum;
 
 import java.time.LocalDateTime;
 

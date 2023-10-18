@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.softuni.mobilele.models.entity.enums.UserRoleEnum;
+import org.softuni.mobilele.models.enums.UserRoleEnum;
 
 @Getter
 @Setter

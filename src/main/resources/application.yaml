@@ -7,7 +7,7 @@ spring:
   thymeleaf:
     prefix: classpath:/templates/
     suffix: .html
-    mode: HTML5
+    mode: HTML
     encoding: UTF-8
     cache: false
     enable-spring-el-compiler: true
@@ -15,7 +15,7 @@ spring:
       content-type: text/html
 
   jpa:
-    database-platform: org.hibernate.dialect.MySQL8Dialect
+    database-platform: org.hibernate.dialect.MySQLDialect
     defer-datasource-initialization: true
     hibernate:
       ddl-auto: update
@@ -23,3 +23,8 @@ spring:
   sql:
     init:
       mode: never
+
+#logging:
+#  level:
+#    org.hibernate.SQL: DEBUG
+#    org.hibernate.orm.jdbc.bind: TRACE

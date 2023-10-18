@@ -47,18 +47,18 @@ public class OfferServiceImpl implements OfferService {
     private Offer map(AddOfferDTO offerDTO) {
         Offer offer = new Offer();
 
-        offer.setDescription(offerDTO.description());
-        offer.setEngine(offerDTO.engine());
-        offer.setImageUrl(offerDTO.imageUrl());
-        offer.setMileage(offerDTO.mileage());
-        offer.setPrice(offerDTO.price());
-        offer.setTransmission(offerDTO.transmission());
-        offer.setYear(offerDTO.year());
+        offer.setDescription(offerDTO.getDescription());
+        offer.setEngine(offerDTO.getEngine());
+        offer.setImageUrl(offerDTO.getImageUrl());
+        offer.setMileage(offerDTO.getMileage());
+        offer.setPrice(offerDTO.getPrice());
+        offer.setTransmission(offerDTO.getTransmission());
+        offer.setYear(offerDTO.getYear());
         offer.setUuid(UUID.randomUUID());
         offer.setCreated(LocalDateTime.now());
         offer.setModified(LocalDateTime.now());
 
-        offer.setModel(modelRepository.getModelById(offerDTO.model()));
+        offer.setModel(modelRepository.getModelById(offerDTO.getModel()));
         offer.setSeller(userRepository.getUserById(currentUser.getId()));
 
         return offer;

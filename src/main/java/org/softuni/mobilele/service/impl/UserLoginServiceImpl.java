@@ -20,11 +20,11 @@ public class UserLoginServiceImpl implements UserLoginService {
 
     @Override
     public boolean loginUser(UserLoginDTO userLoginDTO) {
-        Optional<User> findUser = userRepository.findUserByUsername(userLoginDTO.username());
+        Optional<User> findUser = userRepository.findUserByUsername(userLoginDTO.getUsername());
 
         if (findUser.isPresent()) {
             String encodedPassword = findUser.get().getPassword();
-            String rawPassword = userLoginDTO.password();
+            String rawPassword = userLoginDTO.getPassword();
 
             if (passwordEncoder.matches(rawPassword, encodedPassword)) {
                 currentUser.login(findUser.get());

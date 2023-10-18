@@ -5,8 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.JdbcTypeCode;
-import org.softuni.mobilele.models.entity.enums.EngineEnum;
-import org.softuni.mobilele.models.entity.enums.TransmissionEnum;
+import org.softuni.mobilele.models.enums.EngineEnum;
+import org.softuni.mobilele.models.enums.TransmissionEnum;
 
 import java.math.BigDecimal;
 import java.sql.Types;
