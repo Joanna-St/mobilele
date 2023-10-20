@@ -17,9 +17,9 @@ import java.math.BigDecimal;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class AddOfferDTO {
+public class OfferDTO {
     @NotNull
-    private Long model;
+    private OfferModelDTO model;
     @NotNull
     private BigDecimal price;
     @NotNull

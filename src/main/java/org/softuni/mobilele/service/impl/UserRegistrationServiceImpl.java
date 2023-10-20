@@ -22,8 +22,7 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
 
     @Override
     public void registerUser(UserRegistrationDTO userRegistrationDTO) {
-        userRepository.save(map(userRegistrationDTO));
-        currentUser.login(map(userRegistrationDTO));
+        currentUser.login(userRepository.save(map(userRegistrationDTO)));
     }
 
     private User map(UserRegistrationDTO userRegistrationDTO) {
@@ -33,8 +32,7 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
         newUser.setFirstName(userRegistrationDTO.getFirstName());
         newUser.setLastName(userRegistrationDTO.getLastName());
         newUser.setRole(new UserRole(UserRoleEnum.valueOf(userRegistrationDTO.getRole())));
-        newUser.setCreated(LocalDateTime.now()
-        );
+        newUser.setCreated(LocalDateTime.now());
         newUser.setActive(true);
 
         return newUser;

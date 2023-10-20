@@ -1,7 +1,7 @@
 package org.softuni.mobilele.service.impl;
 
 import lombok.AllArgsConstructor;
-import org.softuni.mobilele.models.dto.AddOfferDTO;
+import org.softuni.mobilele.models.dto.OfferDTO;
 import org.softuni.mobilele.models.entity.Offer;
 import org.softuni.mobilele.repository.ModelRepository;
 import org.softuni.mobilele.repository.OfferRepository;
@@ -28,25 +28,50 @@ public class OfferServiceImpl implements OfferService {
     }
 
     @Override
-    public UUID addOffer(AddOfferDTO addOfferDTO) {
-
-        return offerRepository.save(map(addOfferDTO)).getUuid();
-    }
-
-    @Override
     public Offer getOffer(UUID uuid) {
         return offerRepository.getOfferByUuid(uuid);
     }
 
     @Override
-    public Offer updateOffer(AddOfferDTO updatedOffer) {
-//        TODO
-        return null;
+    public UUID addOffer(OfferDTO addOfferDTO) {
+
+        return offerRepository.save(newOffer(addOfferDTO)).getUuid();
     }
 
-    private Offer map(AddOfferDTO offerDTO) {
+    @Override
+    public void updateOffer(OfferDTO updatedOffer, UUID uuid) {
+        offerRepository.save(updatedOffer(updatedOffer, uuid));
+    }
+
+    @Override
+    public void deleteOffer(String uuid) {
+        offerRepository.delete(offerRepository.getOfferByUuid(UUID.fromString(uuid)));
+    }
+
+    private Offer newOffer(OfferDTO offerDTO) {
         Offer offer = new Offer();
 
+        map(offerDTO, offer);
+        offer.setUuid(UUID.randomUUID());
+        offer.setCreated(LocalDateTime.now());
+        offer.setModified(LocalDateTime.now());
+
+        offer.setSeller(userRepository.getUserById(currentUser.getId()));
+
+        return offer;
+    }
+
+    private Offer updatedOffer(OfferDTO updateOfferDTO, UUID uuid) {
+        Offer offer = offerRepository.getOfferByUuid(uuid);
+
+        map(updateOfferDTO, offer);
+
+        offer.setModified(LocalDateTime.now());
+
+        return offer;
+    }
+
+    private void map(OfferDTO offerDTO, Offer offer) {
         offer.setDescription(offerDTO.getDescription());
         offer.setEngine(offerDTO.getEngine());
         offer.setImageUrl(offerDTO.getImageUrl());
@@ -54,13 +79,6 @@ public class OfferServiceImpl implements OfferService {
         offer.setPrice(offerDTO.getPrice());
         offer.setTransmission(offerDTO.getTransmission());
         offer.setYear(offerDTO.getYear());
-        offer.setUuid(UUID.randomUUID());
-        offer.setCreated(LocalDateTime.now());
-        offer.setModified(LocalDateTime.now());
-
-        offer.setModel(modelRepository.getModelById(offerDTO.getModel()));
-        offer.setSeller(userRepository.getUserById(currentUser.getId()));
-
-        return offer;
+        offer.setModel(modelRepository.getModelById(offerDTO.getModel().getId()));
     }
 }

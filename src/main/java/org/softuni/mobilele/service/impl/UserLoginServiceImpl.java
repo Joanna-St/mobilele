@@ -31,7 +31,6 @@ public class UserLoginServiceImpl implements UserLoginService {
                 return true;
             }
         }
-        ;
 
         return false;
     }

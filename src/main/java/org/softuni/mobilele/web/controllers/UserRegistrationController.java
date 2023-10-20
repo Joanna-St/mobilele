@@ -3,11 +3,13 @@ package org.softuni.mobilele.web.controllers;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.softuni.mobilele.models.dto.UserRegistrationDTO;
+import org.softuni.mobilele.models.enums.UserRoleEnum;
 import org.softuni.mobilele.service.impl.UserRegistrationServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -17,6 +19,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class UserRegistrationController {
     private final UserRegistrationServiceImpl userRegistrationService;
+
+    @ModelAttribute("roles")
+    public UserRoleEnum[] roles(){
+        return UserRoleEnum.values();
+    }
+
 
 
     @GetMapping("/register")

@@ -2,18 +2,17 @@ package org.softuni.mobilele.web.controllers;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.softuni.mobilele.models.dto.AddOfferDTO;
 import org.softuni.mobilele.models.dto.BrandDTO;
+import org.softuni.mobilele.models.dto.OfferDTO;
 import org.softuni.mobilele.models.entity.Offer;
+import org.softuni.mobilele.models.enums.EngineEnum;
+import org.softuni.mobilele.models.enums.TransmissionEnum;
 import org.softuni.mobilele.service.impl.AllBrandsServiceImpl;
 import org.softuni.mobilele.service.impl.OfferServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -26,6 +25,23 @@ public class OfferController {
     private OfferServiceImpl offerService;
     private AllBrandsServiceImpl allBrandsService;
 
+//    Model Attributes =============================================================================
+    @ModelAttribute("engines")
+    public EngineEnum[] engines() {
+        return EngineEnum.values();
+    }
+
+    @ModelAttribute("transmissions")
+    public TransmissionEnum[] transmissions(){
+        return TransmissionEnum.values();
+    }
+
+    @ModelAttribute("brands")
+    public List<BrandDTO> brands(){
+        return allBrandsService.getAllBrands();
+    }
+
+//    Show All Offers ================================================================================
     @GetMapping("/all")
     public String allOffers(Model model) {
         List<Offer> offers = offerService.getAllOffers();
@@ -33,40 +49,38 @@ public class OfferController {
         return "offers";
     }
 
+//    Add New Offer ===================================================================================
     @GetMapping("/add")
     public String addOffer(Model model) {
         if (!model.containsAttribute("addOfferDTO")) {
             model.addAttribute("addOfferDTO",
-                    new AddOfferDTO());
+                    new OfferDTO());
         }
-        List<BrandDTO> brands = allBrandsService.getAllBrands();
-        model.addAttribute("brands", brands);
         return "offer-add";
     }
 
     @PostMapping("/add")
-    public String addOffer(@Valid AddOfferDTO addOfferDTO, BindingResult bindingResult, RedirectAttributes rAtt) {
+    public String addOffer(@Valid OfferDTO addOfferDTO, BindingResult bindingResult, RedirectAttributes rAtt) {
         if (bindingResult.hasErrors()) {
             rAtt.addFlashAttribute("addOfferDTO", addOfferDTO);
             rAtt.addFlashAttribute("org.springframework.validation.BindingResult.addOfferDTO", bindingResult);
             return "redirect:/offers/add";
         }
         UUID offerCreated = offerService.addOffer(addOfferDTO);
-        return "redirect:/offers/" + offerCreated.toString();
+        return "redirect:/offers/" + offerCreated.toString() + "/details";
     }
 
-    @GetMapping("/{uuid}")
+//    Offer Details
+    @GetMapping("/{uuid}/details")
     public String offerDetails(@PathVariable("uuid") String uuid, Model model) {
         Offer offer = offerService.getOffer(UUID.fromString(uuid));
         model.addAttribute("offer", offer);
         return "details";
     }
 
+//    Update Existing offer ============================================================================
     @GetMapping("/{uuid}/update")
     public String updateOffer(@PathVariable("uuid") String uuid, Model model) {
-        List<BrandDTO> brands = allBrandsService.getAllBrands();
-        model.addAttribute("brands", brands);
-
         if (model.containsAttribute("updatedOffer")) {
             model.addAttribute("offer", model.getAttribute("updatedOffer"));
         } else {
@@ -76,24 +90,24 @@ public class OfferController {
         return "update";
     }
 
-
     @PostMapping("/{uuid}/update")
-    public String updateOffer(@PathVariable("uuid") String uuid, @Valid AddOfferDTO updatedOffer, BindingResult bindingResult, RedirectAttributes rAtt) {
+    public String updateOffer(@PathVariable("uuid") UUID uuid, @Valid OfferDTO updatedOffer, BindingResult bindingResult, RedirectAttributes rAtt) {
         if (bindingResult.hasErrors()) {
             rAtt.addFlashAttribute("updatedOffer", updatedOffer);
-            rAtt.addFlashAttribute("org.springframework.validation.BindingResult.updatedOffer", bindingResult);
+            rAtt.addFlashAttribute("org.springframework.validation.BindingResult.offer", bindingResult);
             return "redirect:/offers/" + uuid + "/update";
         }
 
-        offerService.updateOffer(updatedOffer);
+        offerService.updateOffer(updatedOffer, uuid);
         return "redirect:/offers/" + uuid + "/details";
     }
 
-    @PostMapping("/{uuid}/delete")
-    public String deleteOffer(@PathVariable("uuid") String uuid, Model model) {
-        Offer offer = offerService.getOffer(UUID.fromString(uuid));
-        model.addAttribute("offer", offer);
-        //TODO
+//    Delete offer - not working :(
+    @DeleteMapping("/{uuid}/delete")
+    public String deleteOffer(@PathVariable("uuid") String uuid) {
+
+        offerService.deleteOffer(uuid);
+
         return "redirect:/offers/all";
     }
 }

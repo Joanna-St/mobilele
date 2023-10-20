@@ -13,6 +13,6 @@ public class UserLogoutController {
     @GetMapping("/users/logout")
     public String logout() {
         userLogoutService.logoutUser();
-        return "index";
+        return "redirect:/";
     }
 }
